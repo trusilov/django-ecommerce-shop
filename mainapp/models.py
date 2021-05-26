@@ -1,7 +1,6 @@
 from django.db import models
 from django.contrib.auth import get_user_model
 from django.contrib.contenttypes.models import ContentType
-from django.contrib.contenttypes.fields import GenericForeignKey
 from django.urls import reverse
 from django.utils import timezone
 
@@ -28,15 +27,16 @@ class Product(models.Model):
     image = models.ImageField(verbose_name='Изображение')
     description = models.TextField(verbose_name='Описание', null=True)
     price = models.DecimalField(max_digits=9, decimal_places=2, verbose_name='Цена')
+    features = models.ManyToManyField("specs.ProductFeatures", blank=True, related_name='features_for_product')
 
     def __str__(self):
         return self.title
 
-    def get_model_name(self):
-        return self.__class__.__name__.lower()
-
     def get_absolute_url(self):
         return reverse('product_detail', kwargs={'slug': self.slug})
+
+    def get_features(self):
+        return {f.feature.feature_name: ' '.join([f.value, f.feature.unit or ""]) for f in self.features.all()}
 
 
 class CartProduct(models.Model):
