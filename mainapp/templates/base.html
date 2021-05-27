@@ -43,15 +43,20 @@
           </li>
           {% else %}
               <li class="nav-item">
-                  <span class="navbar-text text-light">Здравствуйте, {% if request.user.is_authenticated %}<span class="badge badge-danger"><a href="#" style="text-decoration: none; font-size: 14px;">{{ request.user.username }}</a></span>{% else %} гоcть!{% endif %}<a href="{% url 'logout' %}">| Выйти</a></span>
+                  <span class="navbar-text text-light">Здравствуйте, {% if request.user.is_authenticated %}<span class="badge badge-danger"><a href="#" style="text-decoration: none; font-size: 14px;">{{ request.user.username }}</a></span>{% else %} гоcть!{% endif %}</span>
               </li>
           {% endif %}
           </ul>
-          <ul class="navbar-nav ml-auto">
+          {% if request.user.is_authenticated %}
+        <ul class="navbar-nav ml-auto">
           <li class="nav-item">
             <a class="nav-link" href="{% url 'cart' %}">Корзина <span class="badge badge-pill badge-danger">{{ cart.products.count }}</span></a>
           </li>
+            <li>
+              <a href="{% url 'logout' %}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Выйти</a>
+            </li>
         </ul>
+        {% endif %}
       </div>
     </div>
   </nav>
@@ -94,9 +99,11 @@
                 <h4 class="card-title">
                   <a href="{{ product.get_absolute_url }}">{{ product.title }}</a>
                 </h4>
-                <h5>{{ product.price }} руб.</h5>
+                <h5>{{ product.price }} грн.</h5>
                 <a href="{% url 'add_to_cart' slug=product.slug %}">
+                  {% if request.user.is_authenticated %}
                   <button class="btn btn-danger">Добавить в корзину</button>
+                  {% endif %}
                 </a>
               </div>
             </div>
@@ -115,9 +122,9 @@
   <!-- /.container -->
 
   <!-- Footer -->
-  <footer class="py-5 bg-dark">
+    <footer class="" >
     <div class="container">
-      <p class="m-0 text-center text-white">Copyright &copy; Your Website 2020</p>
+      <p class="m-0 text-center text-white">Kurniy Dmitriy 2021</p>
     </div>
     <!-- /.container -->
   </footer>

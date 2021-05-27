@@ -67,7 +67,7 @@ class RegistrationForm(forms.ModelForm):
     def clean_email(self):
         email = self.cleaned_data['email']
         domain = email.split('.')[-1]
-        if domain in ['com', 'net']:
+        if domain in ['ru', 'rus']:
             raise forms.ValidationError(
                 f'Регистрация для домена {domain} невозможна'
             )
