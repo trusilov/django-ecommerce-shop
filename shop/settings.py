@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'mainapp',
     'specs',
-    'crispy_forms'
+    'crispy_forms',
+    'psycopg2'
 ]
 
 MIDDLEWARE = [
@@ -78,8 +79,12 @@ WSGI_APPLICATION = 'shop.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'shop_db',
+        'USER': 'admin',
+        'PASSWORD': 'adminpass123',
+        'HOST': 'postgresdb',
+        'PORT': 5432
     }
 }
 
