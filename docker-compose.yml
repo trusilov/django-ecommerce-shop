@@ -37,4 +37,4 @@ services:
     ports:
       - "80:80"
     volumes:
-    - ./static/:/static
+      - ./static/:/static
